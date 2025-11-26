@@ -51,3 +51,48 @@ def list_orders(db: Session = Depends(get_db)):
     return crud.get_orders(db)
 
 
+@app.get("/analytics/sales-over-time", response_model=List[schemas.SalesPoint])
+def read_sales_over_time(
+    interval: str = "monthly",
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+):
+    return analytics.sales_over_time(db, interval, start_date, end_date)
+
+
+@app.get("/analytics/top-products", response_model=List[schemas.TopProduct])
+def read_top_products(
+    limit: int = 5,
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+):
+    clean_limit = min(max(limit, 1), 50)
+    return analytics.top_products(db, clean_limit, start_date, end_date)
+
+
+@app.get("/analytics/category-summary", response_model=List[schemas.CategorySummary])
+def read_category_summary(
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+):
+    return analytics.category_summary(db, start_date, end_date)
+
+
+@app.get("/analytics/sales-export")
+def export_sales(
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
+    db: Session = Depends(get_db),
+):
+    csv_content = analytics.sales_csv(db, start_date, end_date)
+    if not csv_content:
+        return Response(status_code=204)
+    return StreamingResponse(
+        iter([csv_content]),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=sales_export.csv"},
+    )
+
