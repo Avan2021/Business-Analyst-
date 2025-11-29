@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
 class ProductBase(BaseModel):
@@ -17,8 +17,7 @@ class ProductCreate(ProductBase):
 class ProductRead(ProductBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CustomerBase(BaseModel):
@@ -33,8 +32,7 @@ class CustomerCreate(CustomerBase):
 class CustomerRead(CustomerBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class OrderItemCreate(BaseModel):
@@ -49,8 +47,7 @@ class OrderItemRead(BaseModel):
     quantity: int
     unit_price: float
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class OrderCreate(BaseModel):
@@ -59,7 +56,8 @@ class OrderCreate(BaseModel):
     status: Optional[str] = "created"
     items: List[OrderItemCreate]
 
-    @validator("items")
+    @field_validator("items")
+    @classmethod
     def validate_items(cls, items):
         if not items:
             raise ValueError("Order must have at least one item.")
@@ -73,8 +71,7 @@ class OrderRead(BaseModel):
     status: str
     items: List[OrderItemRead]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SalesPoint(BaseModel):

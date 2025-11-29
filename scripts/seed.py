@@ -1,5 +1,12 @@
 import random
-from datetime import datetime, timedelta
+import sys
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from sqlalchemy import text
 
 from app import crud, schemas
 from app.database import db_session
@@ -9,10 +16,11 @@ random.seed(7)
 
 def run():
     with db_session() as db:
-        db.execute("DELETE FROM order_items")
-        db.execute("DELETE FROM orders")
-        db.execute("DELETE FROM products")
-        db.execute("DELETE FROM customers")
+        # SQLAlchemy 2.0 requires text() wrapper for raw SQL
+        db.execute(text("DELETE FROM order_items"))
+        db.execute(text("DELETE FROM orders"))
+        db.execute(text("DELETE FROM products"))
+        db.execute(text("DELETE FROM customers"))
 
         products = [
             schemas.ProductCreate(name="Notebook", category="Stationery", price=5.0),
@@ -28,7 +36,7 @@ def run():
         ]
         customer_rows = [crud.create_customer(db, customer) for customer in customers]
 
-        base_date = datetime.utcnow() - timedelta(days=30)
+        base_date = datetime.now(timezone.utc) - timedelta(days=30)
         for offset in range(12):
             order_items = []
             for _ in range(2):

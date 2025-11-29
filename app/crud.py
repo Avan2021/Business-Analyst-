@@ -7,7 +7,7 @@ from . import models, schemas
 
 
 def create_product(db: Session, product: schemas.ProductCreate) -> models.Product:
-    db_product = models.Product(**product.dict())
+    db_product = models.Product(**product.model_dump())
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
@@ -19,7 +19,7 @@ def get_products(db: Session) -> List[models.Product]:
 
 
 def create_customer(db: Session, customer: schemas.CustomerCreate) -> models.Customer:
-    db_customer = models.Customer(**customer.dict())
+    db_customer = models.Customer(**customer.model_dump())
     db.add(db_customer)
     db.commit()
     db.refresh(db_customer)

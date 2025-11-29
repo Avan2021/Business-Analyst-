@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "sales-insights-api-collection",
+		"name": "Sales Insights Backend API",
+		"description": "Complete API collection for Sales Insights Backend - FastAPI application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check if the API is running and healthy"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Notebook\",\n    \"category\": \"Stationery\",\n    \"price\": 5.0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Create a new product"
+					},
+					"response": []
+				},
+				{
+					"name": "List All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get all products"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alice\",\n    \"email\": \"alice@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": "Create a new customer"
+					},
+					"response": []
+				},
+				{
+					"name": "List All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": "Get all customers"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer_id\": 1,\n    \"order_date\": \"2024-01-15T10:30:00\",\n    \"status\": \"completed\",\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 3,\n            \"unit_price\": 5.0\n        },\n        {\n            \"product_id\": 2,\n            \"quantity\": 1,\n            \"unit_price\": 40.0\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Create a new order with items. Note: customer_id and product_id must exist in the database."
+					},
+					"response": []
+				},
+				{
+					"name": "List All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Get all orders"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Sales Over Time - Monthly",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-over-time?interval=monthly",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-over-time"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "monthly",
+									"description": "Options: daily, weekly, monthly"
+								}
+							]
+						},
+						"description": "Get sales over time aggregated by interval (daily, weekly, or monthly)"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Over Time - Weekly",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-over-time?interval=weekly",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-over-time"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "weekly"
+								}
+							]
+						},
+						"description": "Get sales over time aggregated weekly"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Over Time - Daily",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-over-time?interval=daily",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-over-time"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "daily"
+								}
+							]
+						},
+						"description": "Get sales over time aggregated daily"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Over Time - With Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-over-time?interval=monthly&start_date=2024-01-01T00:00:00&end_date=2024-12-31T23:59:59",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-over-time"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "monthly"
+								},
+								{
+									"key": "start_date",
+									"value": "2024-01-01T00:00:00",
+									"description": "ISO format datetime"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31T23:59:59",
+									"description": "ISO format datetime"
+								}
+							]
+						},
+						"description": "Get sales over time with date range filter"
+					},
+					"response": []
+				},
+				{
+					"name": "Top Products - Default (5)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/top-products?limit=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"top-products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "Number of top products to return (1-50)"
+								}
+							]
+						},
+						"description": "Get top selling products by revenue"
+					},
+					"response": []
+				},
+				{
+					"name": "Top Products - Custom Limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/top-products?limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"top-products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get top 10 selling products"
+					},
+					"response": []
+				},
+				{
+					"name": "Top Products - With Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/top-products?limit=5&start_date=2024-01-01T00:00:00&end_date=2024-12-31T23:59:59",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"top-products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "start_date",
+									"value": "2024-01-01T00:00:00"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31T23:59:59"
+								}
+							]
+						},
+						"description": "Get top products with date range filter"
+					},
+					"response": []
+				},
+				{
+					"name": "Category Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/category-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"category-summary"
+							]
+						},
+						"description": "Get revenue and quantity summary by category"
+					},
+					"response": []
+				},
+				{
+					"name": "Category Summary - With Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/category-summary?start_date=2024-01-01T00:00:00&end_date=2024-12-31T23:59:59",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"category-summary"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01T00:00:00"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31T23:59:59"
+								}
+							]
+						},
+						"description": "Get category summary with date range filter"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Export (CSV)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-export",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-export"
+							]
+						},
+						"description": "Export sales data as CSV file"
+					},
+					"response": []
+				},
+				{
+					"name": "Sales Export - With Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics/sales-export?start_date=2024-01-01T00:00:00&end_date=2024-12-31T23:59:59",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics",
+								"sales-export"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2024-01-01T00:00:00"
+								},
+								{
+									"key": "end_date",
+									"value": "2024-12-31T23:59:59"
+								}
+							]
+						},
+						"description": "Export sales data as CSV with date range filter"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
+

@@ -47,7 +47,9 @@ def _fetch_sales_rows(
             ]
         )
 
-    df = pd.DataFrame(rows, columns=rows[0].keys())
+    # Convert SQLAlchemy Row objects to dictionaries
+    rows_dict = [dict(row._mapping) for row in rows]
+    df = pd.DataFrame(rows_dict)
     df["order_date"] = pd.to_datetime(df["order_date"])
     df["revenue"] = df["quantity"] * df["unit_price"]
     return df

@@ -1,11 +1,36 @@
+# Python
 .venv/
 __pycache__/
-.pytest_cache/
-*.sqlite
-*.db
-*.log
-dist/
-build/
 *.pyc
 *.pyo
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Database
+*.sqlite
+*.db
+test.db
+sales.db
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
 
